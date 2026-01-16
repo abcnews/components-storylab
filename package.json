@@ -44,5 +44,7 @@
   "keywords": [
     "svelte"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "homepage": "https://github.com/abcnews/components-storylab",
+  "repository": "github:abcnews/components-storylab"
 }
