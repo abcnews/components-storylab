@@ -1,0 +1,18 @@
+/* transparent iframes */
+html {
+  color-scheme: light;
+  --dark-background: #0e0e0e;
+  &[data-scheme='dark'] {
+    color-scheme: dark;
+  }
+}
+
+/* hard-coded iframe colours for x-domain interactives */
+html[data-background='force'] {
+  background: white;
+  color: black;
+  &[data-scheme='dark'] {
+    background: var(--background, var(--dark-background, black));
+    color: white;
+  }
+}
