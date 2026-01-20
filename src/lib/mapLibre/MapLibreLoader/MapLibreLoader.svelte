@@ -2,6 +2,7 @@
   import { onMount, setContext, untrack } from "svelte";
   import { loadMapLibre } from "../utils.ts";
   import type { maplibregl } from "../maplibre.d.ts";
+  import type { Snippet } from "svelte";
   type Props = {
     rootElStyle?: string;
     onLoad: ({}: {
@@ -9,8 +10,13 @@
       maplibregl: typeof maplibregl;
     }) => maplibregl.Map | Promise<maplibregl.Map> | void | Promise<void>;
     onTeardown?: () => void | Promise<void>;
+    children?: Snippet;
   };
-  const { rootElStyle = "width:100%;height:100%;", onLoad }: Props = $props();
+  const {
+    rootElStyle = "width:100%;height:100%;",
+    onLoad,
+    children,
+  }: Props = $props();
   let rootNode = $state<HTMLDivElement>();
   let status = $state<"loading" | "loaded">("loading");
   let mapInstance = $state<{ map: maplibregl.Map | void }>({ map: undefined });
@@ -30,7 +36,9 @@
   });
 </script>
 
-<div class="maplibre" bind:this={rootNode} style={rootElStyle}></div>
+<div class="maplibre" bind:this={rootNode} style={rootElStyle}>
+  {@render children?.()}
+</div>
 
 <style>
   .maplibre {

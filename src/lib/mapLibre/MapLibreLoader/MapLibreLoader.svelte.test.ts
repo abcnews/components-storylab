@@ -2,6 +2,7 @@ import { describe, expect, it, vi } from "vitest";
 import { render } from "vitest-browser-svelte";
 import MapLibreLoader from "./MapLibreLoader.svelte";
 import * as utils from "../utils.ts";
+import { createRawSnippet } from "svelte";
 
 vi.mock("../utils.ts", async (importOriginal) => {
   const actual = await importOriginal<typeof utils>();
@@ -23,6 +24,19 @@ describe("MapLibreLoader.svelte", () => {
     expect(mapDiv).toBeInTheDocument();
     expect(mapDiv.style.cssText).toContain("width: 500px");
     expect(mapDiv.style.cssText).toContain("height: 500px");
+  });
+
+  it("should render children", () => {
+    const children = createRawSnippet(() => ({
+      render: () => `<span id="test-child">Hello World</span>`,
+    }));
+
+    const { getByText } = render(MapLibreLoader, {
+      onLoad: vi.fn(),
+      children,
+    });
+
+    expect(getByText("Hello World")).toBeInTheDocument();
   });
 
   it("should call onLoad when MapLibre is loaded", async () => {
