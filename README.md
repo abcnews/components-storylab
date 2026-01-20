@@ -2,6 +2,24 @@
 
 A live repo containing reusable components and snippts by Story Lab. This repo is subject to change.
 
+## Installation
+
+1. Install the package:
+   ```sh
+   npm i @abcnews/components-storylab
+   ```
+2. Add the package to your `aunty` config's `includedDependencies` array in `package.json` so it gets built properly:
+   ```js
+     "aunty": {
+       "type": "svelte",
+       "build": {
+         "includedDependencies": [
+           "@abcnews/components-storylab"
+         ]
+       }
+     }
+   ```
+
 ## Components
 
 ### 🌃 initDarkModeIframe
@@ -60,5 +78,3 @@ when props change, wrap it in a {#key}{/key} block/
 ## Developing
 
 See [DEVELOPMENT.md](DEVELOPMENT.md)
-
-Note: I haven't been able to `npm link` svelte components into an Aunty project. If you work this out please let me know.

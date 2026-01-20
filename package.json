@@ -2,8 +2,8 @@
   "name": "@abcnews/components-storylab",
   "version": "0.0.1",
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build && npm run prepack",
+    "dev": "npm run storybook",
+    "build": "npm run prepack",
     "preview": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
     "prepack": "svelte-kit sync && svelte-package && publint",
@@ -11,7 +11,7 @@
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "test:unit": "vitest",
     "test": "npm run test:unit -- --run",
-    "storybook": "storybook dev -p 6006 --host $AUNTY_HOST --ci",
+    "storybook": "export AUNTY_HOST=${AUNTY_HOST:-localhost} && storybook dev -p 6006 --host $AUNTY_HOST --ci",
     "build-storybook": "storybook build"
   },
   "files": [
