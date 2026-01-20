@@ -13,7 +13,7 @@
 <Story
   name="Bright style"
   args={{
-    style: "width:100%;height:calc(100dvh - 2rem);",
+    rootElStyle: "width:100%;height:calc(100dvh - 2rem);",
     onLoad: async ({ rootNode, maplibregl }) => {
       const map = new maplibregl.Map({
         zoom: 3,
@@ -36,7 +36,7 @@
 <Story
   name="Light style"
   args={{
-    style: "width:100%;height:calc(100dvh - 2rem);",
+    rootElStyle: "width:100%;height:calc(100dvh - 2rem);",
     onLoad: async ({ rootNode, maplibregl }) => {
       const map = new maplibregl.Map({
         zoom: 3,

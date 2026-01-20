@@ -4,10 +4,16 @@
    * Call back when MapLibre is loaded with the maplibre namespace and a root
    * node for you to use.
    *
-   * The return value of onLoad is set to the context as `mapInstance` so you
-   * can split up your viz and access it in child components for clarity.
+   * If you return the Map from onLoad, you can access it from child components with:
+   * ```ts
+   * let {map} = getContext<Map>('mapInstance')
+   * ```
+   *
+   * This component will attempt to keep the map stable, so you can not change
+   * props after the fact. If you want to destroy the map and create a new one
+   * when props change, wrap it in a {#key}{/key} block/
    */
-  import { onMount, setContext } from "svelte";
+  import { onMount, setContext, untrack } from "svelte";
   import { loadMapLibre } from "../utils.ts";
   import type { maplibregl } from "../maplibre.d.ts";
   type Props = {
@@ -15,20 +21,26 @@
     onLoad: ({}: {
       rootNode: HTMLDivElement;
       maplibregl: typeof maplibregl;
-    }) => void | Promise<void>;
+    }) => maplibregl.Map | Promise<maplibregl.Map> | void | Promise<void>;
+    onTeardown?: () => void | Promise<void>;
   };
   const { rootElStyle = "width:100%;height:100%;", onLoad }: Props = $props();
   let rootNode = $state<HTMLDivElement>();
+  let status = $state<"loading" | "loaded">("loading");
+  let mapInstance = $state<{ map: maplibregl.Map | void }>({ map: undefined });
+  setContext("mapInstance", mapInstance);
 
   onMount(async () => {
-    const maplibregl = await loadMapLibre();
     if (!rootNode) {
-      // we don't need to handle this edge case because it will never happen but
-      // TypeScript needs it here.
       return;
     }
-    const mapInstance = onLoad({ rootNode, maplibregl });
-    setContext("mapInstance", mapInstance);
+    await loadMapLibre();
+    const newMapInstance = await onLoad({
+      rootNode,
+      maplibregl: window.maplibregl,
+    });
+    mapInstance.map = newMapInstance;
+    status = "loaded";
   });
 </script>
 
