@@ -1,18 +1,4 @@
 <script lang="ts">
-  /**
-   * @file
-   * Call back when MapLibre is loaded with the maplibre namespace and a root
-   * node for you to use.
-   *
-   * If you return the Map from onLoad, you can access it from child components with:
-   * ```ts
-   * let {map} = getContext<Map>('mapInstance')
-   * ```
-   *
-   * This component will attempt to keep the map stable, so you can not change
-   * props after the fact. If you want to destroy the map and create a new one
-   * when props change, wrap it in a {#key}{/key} block/
-   */
   import { onMount, setContext, untrack } from "svelte";
   import { loadMapLibre } from "../utils.ts";
   import type { maplibregl } from "../maplibre.d.ts";
