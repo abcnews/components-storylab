@@ -1,46 +1,104 @@
 # Svelte library development
 
-Everything you need to build a Svelte library, powered by [`sv`](https://npmjs.com/package/sv).
-
-Read more about creating a library [in the docs](https://svelte.dev/docs/kit/packaging).
+Everything you need to build and maintain the `@abcnews/components-storylab` library.
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Everything inside `src/lib` is part of your library. We use Storybook for component development, documentation, and as a showcase.
+
+Quick start:
+
+1. `git clone https://github.com/abcnews/components-storylab`
+2. `cd components-storylab && npm i`
+3. `npm run storybook`
+
+### Storybook
+
+To work around CORS issues when developing against ABC servers, you should set the `AUNTY_HOST` environment variable to your machine's full hostname:
 
 ```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+AUNTY_HOST=http://xxx.aus.aunty.abc.net.au:6006/ npm run storybook
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+### Testing
+
+We use [Vitest](https://vitest.dev/) for unit and component testing.
+
+To run all tests once:
+
+```sh
+npm test
+```
+
+To run tests in watch mode:
+
+```sh
+npm run test:unit
+```
+
+For an example of how to write a component test using `vitest-browser-svelte`, see [`src/lib/mapLibre/MapLibreLoader/MapLibreLoader.svelte.test.ts`](src/lib/mapLibre/MapLibreLoader/MapLibreLoader.svelte.test.ts).
+
+Refer to the [Svelte Vitest documentation](https://svelte.dev/docs/svelte/testing#Unit-and-component-tests-with-Vitest) for more details on testing Svelte components.
 
 ## Building
 
-To build your library:
-
-```sh
-npm pack
-```
-
-To create a production version of your showcase app:
+To build the library for distribution:
 
 ```sh
 npm run build
 ```
 
-You can preview the production build with `npm run preview`.
+This will run `svelte-package` to create the `dist` directory.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+### Linking into your Aunty project
+
+To develop components directly against your live app, use `npm link`.
+
+1. Build the package:
+   ```sh
+   npm run build
+   ```
+2. Create the link in this repository:
+   ```sh
+   npm link
+   ```
+3. Link the package in your consuming repository:
+   ```sh
+   npm link @abcnews/components-storylab
+   ```
+4. Then add your `aunty` config so it gets built properly. For `npm link` to work, you need to add the path on the filesystem to `includedDependencies`:
+
+```js
+  "aunty": {
+    "type": "svelte",
+    "build": {
+      "entry": [
+        "index"
+      ],
+      "includedDependencies": [
+        "@abcnews/components-builder",
+        "@abcnews/components-storylab",
+        "/Users/kyd.ashley/Web/components-storylab"
+      ]
+    }
+  }
+```
+
+Note: I haven't been able to get svelte components linked into an Aunty project without errors. If you work this out please update the docs.
 
 ## Publishing
 
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
+The package is published on [npmjs.com/package/@abcnews/components-storylab](https://www.npmjs.com/package/@abcnews/components-storylab).
 
-To publish your library to [npm](https://www.npmjs.com):
-
-```sh
-npm publish
-```
+1. Bump the version:
+   ```sh
+   npm version patch|minor|major
+   ```
+2. Build the library:
+   ```sh
+   npm run build
+   ```
+3. Publish to npm:
+   ```sh
+   npm publish
+   ```
