@@ -8,15 +8,15 @@
   /* Typography provider definitions */
   div {
     display: contents;
-    --sl-font-stack-condensed: 'abcsans condensed', -apple-system,
+    --sl-font-stack-condensed: 'ABCSans Condensed', -apple-system,
       blinkmacsystemfont, 'Segoe UI', 'Roboto', 'Helvetica Neue', arial,
       sans-serif;
-    --sl-font-stack-rounded: 'abcsans rounded', -apple-system,
+    --sl-font-stack-rounded: 'ABCSans Rounded', -apple-system,
       blinkmacsystemfont, 'Segoe UI', 'Roboto', 'Helvetica Neue', arial,
       sans-serif;
-    --sl-font-stack-sans: 'abcsans', -apple-system, blinkmacsystemfont,
+    --sl-font-stack-sans: 'ABCSans', -apple-system, blinkmacsystemfont,
       'Segoe UI', 'Roboto', 'Helvetica Neue', arial, sans-serif;
-    --sl-font-stack-serif: 'abcserif', 'Book Anitqua', 'Palatino Linotype',
+    --sl-font-stack-serif: 'ABCSerif', 'Book Anitqua', 'Palatino Linotype',
       palatino, serif;
     --sl-font-stack-monospace: 'abcsans tabbed', monospace;
 
