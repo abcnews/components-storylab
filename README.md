@@ -75,6 +75,29 @@ This component will attempt to keep the map stable, so you can not change
 props after the fact. If you want to destroy the map and create a new one
 when props change, wrap it in a {#key}{/key} block/
 
+### TypographyProvider
+
+Wrap your app in this component to get easy access to ABC fonts and use ABCSans by default for all child components.
+
+```svelte
+<script>
+  import {TypographyProvider} from '@abcnews/components-storylab';
+</script>
+
+<TypographyProvider>
+  <p>This will be typeset in ABC Sans</p>
+</TypographyProvider>
+```
+It also provides CSS custom props you can use to apply various ABC font stacks in your own styles. They're namespaced `--sl-` for Story Lab to avoid clashes.
+
+```
+--sl-font-stack-sans
+--sl-font-stack-serif
+--sl-font-stack-rounded
+--sl-font-stack-contensed
+--sl-font-stack-monospace
+```
+
 ## Developing
 
 See [DEVELOPMENT.md](DEVELOPMENT.md)
