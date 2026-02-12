@@ -14,7 +14,7 @@ describe("TypographyProvider.svelte", () => {
     const { container } = render(TypographyProvider);
 
     expect(container).toBeInTheDocument();
-    expect(css(container.querySelector('[class^="svelte"]'), 'font-family')).toBe('abcsans, -apple-system, blinkmacsystemfont, "Segoe UI", Roboto, "Helvetica Neue", arial, sans-serif');
+    expect(css(container.querySelector('[class^="svelte"]'), 'font-family')).toBe('ABCSans, -apple-system, blinkmacsystemfont, "Segoe UI", Roboto, "Helvetica Neue", arial, sans-serif');
     
   });
 
