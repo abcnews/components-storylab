@@ -17,7 +17,10 @@
   "files": [
     "dist",
     "!dist/**/*.test.*",
-    "!dist/**/*.spec.*"
+    "!dist/**/*.stories.*",
+    "src/lib",
+    "!src/lib/**/*.test.*",
+    "!src/lib/**/*.stories.*"
   ],
   "sideEffects": [
     "**/*.css"
@@ -28,11 +31,8 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "svelte": "./dist/index.js"
-    },
-    "./mapLibre": {
-      "types": "./dist/mapLibre/index.d.ts",
-      "default": "./dist/mapLibre/index.js"
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
     }
   },
   "peerDependencies": {
