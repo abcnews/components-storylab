@@ -3,4 +3,5 @@
 
 export { default as initDarkModeIframe } from "./utils/initDarkModeIframe/initDarkModeIframe.ts";
 export { TypographyProvider } from "./typography/index.ts"
+export { FigureCaption } from "./figures/index.ts"
 export { MapLibreLoader, utils as mapLibreUtils, type maplibregl } from './mapLibre/index.ts'
